@@ -38,6 +38,27 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/allDoingTasks', async (req, res) => {
+            const query = { taskStatus: 'doing' }
+            const result = await taskManagementCollection.find(query).toArray()
+            res.send(result)
+        })
+        app.get('/allOnHoldTasks', async (req, res) => {
+            const query = { taskStatus: 'onHold' }
+            const result = await taskManagementCollection.find(query).toArray()
+            res.send(result)
+        })
+        app.get('/allDoneTasks', async (req, res) => {
+            const query = { taskStatus: 'done' }
+            const result = await taskManagementCollection.find(query).toArray()
+            res.send(result)
+        })
+        app.get('/allArchivedTasks', async (req, res) => {
+            const query = { taskStatus: 'archived' }
+            const result = await taskManagementCollection.find(query).toArray()
+            res.send(result)
+        })
+
 
 
 
