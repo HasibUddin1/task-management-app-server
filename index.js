@@ -38,6 +38,11 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/allTasks', async (req, res) => {
+            const result = await taskManagementCollection.find().toArray()
+            res.send(result)
+        })
+
         app.get('/allDoingTasks', async (req, res) => {
             const query = { taskStatus: 'Doing' }
             const result = await taskManagementCollection.find(query).toArray()
