@@ -43,6 +43,13 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/getSingleTask/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const result = await taskManagementCollection.findOne(query)
+            res.send(result)
+        })
+
         app.get('/allDoingTasks', async (req, res) => {
             const query = { taskStatus: 'Doing' }
             const result = await taskManagementCollection.find(query).toArray()
@@ -64,9 +71,27 @@ async function run() {
             res.send(result)
         })
 
+        app.put('/updateATask/:id', async (req, res) => {
+            const id = req.params.id
+            const updatedTask = req.body
+            const options = { upsert: true }
+            const filter = { _id: new ObjectId(id) }
+
+            const updateDoc = {
+                $set: {
+                    taskTitle: updatedTask.taskTitle,
+                    taskStatus: updatedTask.taskStatus,
+                    taskDescription: updatedTask.taskDescription
+                }
+            }
+
+            const result = await taskManagementCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
+        })
+
         app.delete('/deleteTask/:id', async (req, res) => {
             const id = req.params.id
-            const query = {_id: new ObjectId(id)}
+            const query = { _id: new ObjectId(id) }
             const result = await taskManagementCollection.deleteOne(query)
             res.send(result)
         })
