@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors')
 require('dotenv').config()
 const app = express()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000
 
 // middleware
@@ -61,6 +61,13 @@ async function run() {
         app.get('/allArchivedTasks', async (req, res) => {
             const query = { taskStatus: 'Archived' }
             const result = await taskManagementCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        app.delete('/deleteTask/:id', async (req, res) => {
+            const id = req.params.id
+            const query = {_id: new ObjectId(id)}
+            const result = await taskManagementCollection.deleteOne(query)
             res.send(result)
         })
 
