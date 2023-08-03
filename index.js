@@ -39,22 +39,22 @@ async function run() {
         })
 
         app.get('/allDoingTasks', async (req, res) => {
-            const query = { taskStatus: 'doing' }
+            const query = { taskStatus: 'Doing' }
             const result = await taskManagementCollection.find(query).toArray()
             res.send(result)
         })
         app.get('/allOnHoldTasks', async (req, res) => {
-            const query = { taskStatus: 'onHold' }
+            const query = { taskStatus: 'On Hold' }
             const result = await taskManagementCollection.find(query).toArray()
             res.send(result)
         })
         app.get('/allDoneTasks', async (req, res) => {
-            const query = { taskStatus: 'done' }
+            const query = { taskStatus: 'Done' }
             const result = await taskManagementCollection.find(query).toArray()
             res.send(result)
         })
         app.get('/allArchivedTasks', async (req, res) => {
-            const query = { taskStatus: 'archived' }
+            const query = { taskStatus: 'Archived' }
             const result = await taskManagementCollection.find(query).toArray()
             res.send(result)
         })
